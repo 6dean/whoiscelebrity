@@ -1,0 +1,45 @@
+.img-cont {
+  position: relative;
+  max-width: 450px;
+}
+
+.img-cont img {
+  display: block;
+  max-width: 100%;
+}
+
+.blur-overlay-lv3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(12px);
+}
+
+.blur-overlay-lv2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+}
+
+.blur-overlay-lv1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+}
+
+.blur-overlay-lv0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0px);
+}
