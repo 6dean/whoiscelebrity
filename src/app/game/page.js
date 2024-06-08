@@ -8,6 +8,7 @@ export default function Game() {
   const [celebrityName, setCelebrityName] = useState("");
   const [gamePoints, setGamePoints] = useState(0);
   const [difficultyBlur, setDifficultyBlur] = useState(3);
+  const [isNotCorrect, setIsNotCorrect] = useState(false);
   const [creditPlus, setCreditPlus] = useState(false);
   const [loading, setLoading] = useState(true);
   const [arrayGame, setArrayGame] = useState(null);
@@ -53,6 +54,7 @@ export default function Game() {
         }
       } else {
         difficultyBlur === 0 ? null : setDifficultyBlur(difficultyBlur - 1);
+        setIsNotCorrect(true);
       }
     }
   };
@@ -61,7 +63,14 @@ export default function Game() {
     if (gamePoints === 10) {
       setCreditPlus(true);
     }
-  }, [gamePoints]);
+
+    if (isNotCorrect) {
+      const timer = setTimeout(() => {
+        setIsNotCorrect(false);
+      }, 1000); //
+      return () => clearTimeout(timer);
+    }
+  }, [gamePoints, isNotCorrect]);
 
   const continueCredit = () => {
     setCreditPlus(false);
@@ -93,7 +102,9 @@ export default function Game() {
           <div>{arrayGame.public_id.split("GuessWho/")[1]}</div>
           <div>
             <input
-              className="text-red-500"
+              className={`focus:outline-${isNotCorrect ? "red" : "black"}-500 ${
+                isNotCorrect ? "shake" : ""
+              }`}
               type="text"
               value={celebrityName}
               onChange={(e) => setCelebrityName(e.target.value)}

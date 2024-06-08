@@ -43,3 +43,28 @@
   height: 100%;
   backdrop-filter: blur(0px);
 }
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-2px, -2px);
+  }
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    transform: translate(2px, 2px);
+  }
+}
+
+input.shake {
+  animation: shake 0.5s linear;
+  outline-color: red;
+}
