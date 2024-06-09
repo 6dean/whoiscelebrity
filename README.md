@@ -13,3 +13,7 @@ You have to reach 100 points to win
 ## API Cloudinary
 
 The game is powered by an API from Cloudinary using my folders
+
+## ISSUES
+
+I am aware about that the game doesnt work correctly on Safary iOS, I am working on it
