@@ -174,11 +174,13 @@ export default function Game() {
                 <div>0 pt</div>
               </div>
             )}
-            <div className="flex justify-center">
+            <div className="flex justify-center items-center mt-8">
               <input
                 className={`focus:outline-${
                   isNotCorrect ? "red" : "black"
-                }-500 ${isNotCorrect ? "shake" : ""} mt-8 `}
+                }-500 ${
+                  isNotCorrect ? "shake" : ""
+                } p-2 border border-gray-300 rounded`}
                 type="text"
                 value={celebrityName}
                 placeholder="Guess The Picture"
@@ -189,7 +191,11 @@ export default function Game() {
                   }
                 }}
               />
+              <button className="custom-button" onClick={validateCelebrityName}>
+                ✓
+              </button>
             </div>
+
             <div className="flex justify-center">
               <button className="buttonpass" onClick={PassCelebrityName}>
                 PASS
