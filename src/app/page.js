@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 export default function Home() {
-  const params = useParams();
   const [difficulty, setDifficulty] = useState("EASY");
 
   const toggleDifficulty = () => {

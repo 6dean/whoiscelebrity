@@ -33,7 +33,9 @@ const fetchImages = async (url, accumulatedData = []) => {
   }
 };
 
-export default async function cloudinaryApi() {
-  const initialUrl = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${CLOUDINARY_CLOUD_FOLDER}`;
+export default async function cloudinaryApi(difficultyLvl) {
+  const folder = difficultyLvl === "EASY" ? "GuessWho" : "HardGuess";
+
+  const initialUrl = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`;
   return await fetchImages(initialUrl);
 }

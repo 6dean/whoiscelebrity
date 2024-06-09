@@ -2,9 +2,11 @@
 import Cloudi from "@/app/api/cloudinary";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function Game({ params }) {
-  console.log(params);
+export default function Game() {
+  const searchParams = useSearchParams();
+  const difficultyLvl = searchParams.get("difficulty");
 
   const [data, setData] = useState([]);
   const [celebrityName, setCelebrityName] = useState("");
@@ -18,7 +20,7 @@ export default function Game({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await Cloudi();
+        const result = await Cloudi(difficultyLvl);
         setData(result);
         setTimeout(() => {
           setLoading(false);
