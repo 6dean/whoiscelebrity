@@ -2,11 +2,17 @@
 import Cloudi from "@/app/api/cloudinary";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function Game() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const difficultyLvl = searchParams.get("difficulty");
+
+  if (difficultyLvl !== "EASY" && difficultyLvl !== "HARD") {
+    router.push("/");
+    return null;
+  }
 
   const [data, setData] = useState([]);
   const [celebrityName, setCelebrityName] = useState("");
@@ -22,12 +28,12 @@ export default function Game() {
       try {
         const result = await Cloudi(difficultyLvl);
         setData(result);
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
         if (result.length > 0) {
           setArrayGame(result[Math.floor(Math.random() * result.length)]);
         }
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       } catch (error) {
         setLoading(false);
       }
@@ -179,6 +185,11 @@ export default function Game() {
       )}
 
       <div>{gamePoints}</div>
+      <div>
+        <Link href={"/"}>
+          <div>RETOUR</div>
+        </Link>
+      </div>
     </main>
   );
 }
