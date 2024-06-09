@@ -3,6 +3,7 @@ import Cloudi from "@/app/api/cloudinary";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
 export default function Game() {
   const router = useRouter();
@@ -114,90 +115,113 @@ export default function Game() {
 
   if (loading) {
     return (
-      <main className="flex flex-col justify-center items-center h-screen">
-        <div className="loader"></div>
-        <span className="mt-3">Loading from Cloudinary...</span>
-      </main>
+      <Suspense>
+        <main className="flex flex-col justify-center items-center h-screen">
+          <div className="loader"></div>
+          <span className="mt-3">Loading from Cloudinary...</span>
+        </main>
+      </Suspense>
     );
   }
 
   return (
-    <main className="flex justify-center items-center mt-12">
-      <div>
-        <div className="flex justify-center items-center">
-          <Link href={"/"}>
-            <div className="abandon">Abandon</div>
-          </Link>
-        </div>
-        {!endGame ? (
-          <div className="p-4">
-            <div className="img-cont">
-              <img src={arrayGame.secure_url} alt="Random image" />
-              <div
-                className={`blur-overlay${
-                  difficultyBlur === 3
-                    ? "-lv3"
-                    : difficultyBlur === 2
-                    ? "-lv2"
-                    : difficultyBlur === 1
-                    ? "-lv1"
-                    : "-lv0"
-                }`}
-              ></div>
-            </div>
-            {difficultyBlur === 3 ? (
-              <div className="flex justify-between mt-2">
-                <button onClick={lessBlur} className="helpme">
-                  🔍 Hint
-                </button>
-                <div>+ 5 pts</div>
-              </div>
-            ) : difficultyBlur === 2 ? (
-              <div class="flex justify-between mt-2">
-                <button onClick={lessBlur} className="helpme">
-                  🔍 Hint
-                </button>
-                <div>+ 3 pts</div>
-              </div>
-            ) : difficultyBlur === 1 ? (
-              <div class="flex justify-between mt-2">
-                <button onClick={lessBlur} className="helpme">
-                  🔍 Hint
-                </button>
-                <div>+ 1 pts</div>
-              </div>
-            ) : (
-              <div class="flex justify-between mt-2">
-                <div className="">No more hint 😮‍💨</div>
-                <div>0 pt</div>
-              </div>
-            )}
-            <div className="flex justify-center">
-              <input
-                className={`focus:outline-${
-                  isNotCorrect ? "red" : "black"
-                }-500 ${isNotCorrect ? "shake" : ""} mt-10 `}
-                type="text"
-                value={celebrityName}
-                placeholder="Guess The Picture"
-                onChange={(e) => setCelebrityName(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    validateCelebrityName();
-                  }
-                }}
-              />
-            </div>
-            <div className="flex justify-center">
-              <button className="buttonpass" onClick={PassCelebrityName}>
-                PASS
-              </button>
-            </div>
+    <Suspense>
+      <main className="flex justify-center items-center mt-12">
+        <div>
+          <div className="flex justify-center items-center">
+            <Link href={"/"}>
+              <div className="abandon">Abandon</div>
+            </Link>
           </div>
-        ) : (
-          <>
-            {arrayGame === null && gamePoints < 100 ? (
-              <>
+          {!endGame ? (
+            <div className="p-4">
+              <div className="img-cont">
+                <img src={arrayGame.secure_url} alt="Random image" />
+                <div
+                  className={`blur-overlay${
+                    difficultyBlur === 3
+                      ? "-lv3"
+                      : difficultyBlur === 2
+                      ? "-lv2"
+                      : difficultyBlur === 1
+                      ? "-lv1"
+                      : "-lv0"
+                  }`}
+                ></div>
+              </div>
+              {difficultyBlur === 3 ? (
+                <div className="flex justify-between mt-2">
+                  <button onClick={lessBlur} className="helpme">
+                    🔍 Hint
+                  </button>
+                  <div>+ 5 pts</div>
+                </div>
+              ) : difficultyBlur === 2 ? (
+                <div class="flex justify-between mt-2">
+                  <button onClick={lessBlur} className="helpme">
+                    🔍 Hint
+                  </button>
+                  <div>+ 3 pts</div>
+                </div>
+              ) : difficultyBlur === 1 ? (
+                <div class="flex justify-between mt-2">
+                  <button onClick={lessBlur} className="helpme">
+                    🔍 Hint
+                  </button>
+                  <div>+ 1 pts</div>
+                </div>
+              ) : (
+                <div class="flex justify-between mt-2">
+                  <div className="">No more hint 😮‍💨</div>
+                  <div>0 pt</div>
+                </div>
+              )}
+              <div className="flex justify-center">
+                <input
+                  className={`focus:outline-${
+                    isNotCorrect ? "red" : "black"
+                  }-500 ${isNotCorrect ? "shake" : ""} mt-10 `}
+                  type="text"
+                  value={celebrityName}
+                  placeholder="Guess The Picture"
+                  onChange={(e) => setCelebrityName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      validateCelebrityName();
+                    }
+                  }}
+                />
+              </div>
+              <div className="flex justify-center">
+                <button className="buttonpass" onClick={PassCelebrityName}>
+                  PASS
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {arrayGame === null && gamePoints < 100 ? (
+                <>
+                  <div className="mt-10">
+                    <span
+                      className="tryagain"
+                      onClick={() => window.location.reload()}
+                    >
+                      Try again
+                    </span>
+                    <span> and reach 100 points!</span>
+                  </div>
+                </>
+              ) : gamePoints >= 100 ? (
+                <div>
+                  <div>Congratulations! You reached 100 points!</div>
+                  <div>
+                    <Link href={"/"}>
+                      <div>RETOUR</div>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
                 <div className="mt-10">
                   <span
                     className="tryagain"
@@ -207,32 +231,13 @@ export default function Game() {
                   </span>
                   <span> and reach 100 points!</span>
                 </div>
-              </>
-            ) : gamePoints >= 100 ? (
-              <div>
-                <div>Congratulations! You reached 100 points!</div>
-                <div>
-                  <Link href={"/"}>
-                    <div>RETOUR</div>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className="mt-10">
-                <span
-                  className="tryagain"
-                  onClick={() => window.location.reload()}
-                >
-                  Try again
-                </span>
-                <span> and reach 100 points!</span>
-              </div>
-            )}
-          </>
-        )}
+              )}
+            </>
+          )}
 
-        <div className="flex justify-center points">{gamePoints}</div>
-      </div>
-    </main>
+          <div className="flex justify-center points">{gamePoints}</div>
+        </div>
+      </main>
+    </Suspense>
   );
 }
