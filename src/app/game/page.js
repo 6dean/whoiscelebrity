@@ -146,7 +146,7 @@ export default function Game() {
               ></div>
             </div>
             {difficultyBlur === 3 ? (
-              <div class="flex justify-between mt-2">
+              <div className="flex justify-between mt-2">
                 <button onClick={lessBlur} className="helpme">
                   🔍 Hint
                 </button>
