@@ -10,21 +10,36 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <Link href={{ pathname: "/game", query: { difficulty: difficulty } }}>
-        <div>NOUVELLE PARTIE</div>
-      </Link>
-      <div className="mb-4 flex items-center">
-        <span className="mr-2">EASY</span>
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={difficulty === "HARD"}
-            onChange={toggleDifficulty}
+    <main className="flex justify-center items-center mt-12">
+      <div>
+        <div className="img-game">
+          <img
+            src="https://res.cloudinary.com/dlfp2xvis/image/upload/PLUTO_aeggfe.gif"
+            alt="img-game"
           />
-          <span className="slider"></span>
-        </label>
-        <span className="ml-2">HARD</span>
+        </div>
+        <div className="flex justify-center p-5">
+          <Link href={{ pathname: "/game", query: { difficulty: difficulty } }}>
+            <span className="newgame">START</span>
+          </Link>
+        </div>
+
+        <div className="mb-4 flex justify-center items-center">
+          <span className={difficulty === "EASY" ? "lvlchoice" : "lvl"}>
+            EASY
+          </span>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={difficulty === "HARD"}
+              onChange={toggleDifficulty}
+            />
+            <span className="slider"></span>
+          </label>
+          <span className={difficulty === "HARD" ? "lvlchoice" : "lvl"}>
+            HARD
+          </span>
+        </div>
       </div>
     </main>
   );

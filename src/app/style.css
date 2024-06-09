@@ -1,5 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Tiny5&display=swap");
+
 input {
-  color: black;
+  color: black !important;
+  font-size: 26px !important;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+input::placeholder {
+  opacity: 0.2 !important;
+}
+
+input:focus {
+  outline-color: rgba(0, 0, 255, 0);
+  border-color: #ffffff; /* Couleur de la bordure lorsque l'input est en focus */
+  box-shadow: 0 0 8px rgb(255, 255, 255); /* Légère ombre portée lorsque l'input est en focus */
+}
+
+.tryagain {
+  font-weight: 700;
+}
+
+.tryagain:hover {
+  cursor: pointer;
+  color: goldenrod;
+  text-decoration: underline;
+}
+
+.helpme:hover {
+  color: goldenrod;
 }
 
 .img-cont {
@@ -116,4 +148,96 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(26px);
+}
+
+.newgame {
+  font-family: "Tiny5", sans-serif;
+  font-size: 40px;
+  opacity: 90%;
+  transition: 0.3s ease-in-out;
+}
+
+.newgame:hover {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.645);
+}
+
+.lvl {
+  font-family: "Tiny5", sans-serif;
+  font-size: 20px;
+  opacity: 60%;
+  padding: 15px;
+  text-decoration: line-through;
+  text-decoration-color: rgb(255, 255, 255);
+}
+
+.lvlchoice {
+  font-family: "Tiny5", sans-serif;
+  font-size: 20px;
+  padding: 15px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.645);
+}
+
+.img-game {
+  max-width: 400px;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  background: linear-gradient(#ed303c 0 0), linear-gradient(#3b8183 0 0),
+    linear-gradient(#ff9c5b 0 0) #ed303c;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: l12 2s infinite;
+}
+@keyframes l12 {
+  0% {
+    background-size: 100% 100%, 100% 100%, 100% 100%;
+  }
+  33% {
+    background-size: 0px 0px, 100% 100%, 100% 100%;
+  }
+  66% {
+    background-size: 0px 0px, 0px 0px, 100% 100%;
+  }
+  100% {
+    background-size: 0px 0px, 0px 0px, 0px 0px;
+  }
+}
+
+.abandon {
+  opacity: 40%;
+}
+
+.abandon:hover {
+  opacity: 80%;
+}
+
+.points {
+  font-family: "Tiny5", sans-serif;
+  font-size: 100px;
+}
+
+.buttonpass {
+  margin-top: 60px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  height: 90px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.buttonpass:hover {
+  background-color: #cc0000;
+}
+
+.buttonpass:active {
+  transform: translateY(2px);
 }
