@@ -8,6 +8,7 @@ export default function Game() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const difficultyLvl = searchParams.get("difficulty");
+  const folder = difficultyLvl === "EASY" ? "GuessWho/" : "HardGuess/";
 
   if (difficultyLvl !== "EASY" && difficultyLvl !== "HARD") {
     router.push("/");
@@ -45,9 +46,7 @@ export default function Game() {
   const validateCelebrityName = () => {
     if (celebrityName && arrayGame) {
       const guessedName = celebrityName.toLowerCase();
-      const actualName = arrayGame.public_id
-        .split("GuessWho/")[1]
-        .toLowerCase();
+      const actualName = arrayGame.public_id.split(folder)[1].toLowerCase();
       if (guessedName === actualName) {
         const newData = data.filter(
           (item) => item.public_id !== arrayGame.public_id
@@ -76,7 +75,7 @@ export default function Game() {
   };
 
   const PassCelebrityName = () => {
-    const actualName = arrayGame.public_id.split("GuessWho/")[1].toLowerCase();
+    const actualName = arrayGame.public_id.split(folder)[1].toLowerCase();
     if (actualName) {
       const newData = data.filter(
         (item) => item.public_id !== arrayGame.public_id
@@ -141,7 +140,7 @@ export default function Game() {
           ) : (
             <div>0 pt</div>
           )}
-          <div>{arrayGame.public_id.split("GuessWho/")[1]}</div>
+          <div>{arrayGame.public_id.split(folder)[1]}</div>
           <div>
             <input
               className={`focus:outline-${isNotCorrect ? "red" : "black"}-500 ${
