@@ -30,6 +30,11 @@ input:focus {
   text-decoration: underline;
 }
 
+.returnbutton:hover {
+  cursor: pointer;
+  color: goldenrod;
+}
+
 .helpme:hover {
   color: goldenrod;
 }
@@ -240,4 +245,32 @@ input:checked + .slider:before {
 
 .buttonpass:active {
   transform: translateY(2px);
+}
+
+@media screen and (max-width: 1500px) {
+  .img-cont {
+    position: relative;
+    max-width: 310px;
+  }
+  input {
+    font-size: 20px !important;
+  }
+  .buttonpass {
+    margin-top: 30px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    height: 50px;
+    padding: 10px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .points {
+    font-family: "Tiny5", sans-serif;
+    font-size: 50px;
+  }
 }

@@ -124,11 +124,13 @@ export default function Game() {
   return (
     <main className="flex justify-center items-center mt-12">
       <div>
-        <div className="flex justify-center items-center">
-          <Link href={"/"}>
-            <div className="abandon">Abandon</div>
-          </Link>
-        </div>
+        {gamePoints >= 100 ? null : (
+          <div className="flex justify-center items-center">
+            <Link href={"/"}>
+              <div className="abandon">Abandon</div>
+            </Link>
+          </div>
+        )}
         {!endGame ? (
           <div className="p-4">
             <div className="img-cont">
@@ -176,7 +178,7 @@ export default function Game() {
               <input
                 className={`focus:outline-${
                   isNotCorrect ? "red" : "black"
-                }-500 ${isNotCorrect ? "shake" : ""} mt-10 `}
+                }-500 ${isNotCorrect ? "shake" : ""} mt-8 `}
                 type="text"
                 value={celebrityName}
                 placeholder="Guess The Picture"
@@ -211,9 +213,9 @@ export default function Game() {
             ) : gamePoints >= 100 ? (
               <div>
                 <div>Congratulations! You reached 100 points!</div>
-                <div>
+                <div className="flex justify-center mt-10">
                   <Link href={"/"}>
-                    <div>RETOUR</div>
+                    <div className="returnbutton">Return</div>
                   </Link>
                 </div>
               </div>
