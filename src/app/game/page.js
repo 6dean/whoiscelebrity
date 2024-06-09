@@ -3,7 +3,9 @@ import Cloudi from "@/app/api/cloudinary";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Game() {
+export default function Game({ params }) {
+  console.log(params);
+
   const [data, setData] = useState([]);
   const [celebrityName, setCelebrityName] = useState("");
   const [gamePoints, setGamePoints] = useState(0);
