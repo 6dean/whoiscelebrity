@@ -1,3 +1,7 @@
+input {
+  color: black;
+}
+
 .img-cont {
   position: relative;
   max-width: 450px;

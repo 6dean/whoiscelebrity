@@ -9,7 +9,7 @@ export default function Game() {
   const [gamePoints, setGamePoints] = useState(0);
   const [difficultyBlur, setDifficultyBlur] = useState(3);
   const [isNotCorrect, setIsNotCorrect] = useState(false);
-  const [creditPlus, setCreditPlus] = useState(false);
+  const [endGame, setEndGame] = useState(false);
   const [loading, setLoading] = useState(true);
   const [arrayGame, setArrayGame] = useState(null);
 
@@ -20,7 +20,7 @@ export default function Game() {
         setData(result);
         setTimeout(() => {
           setLoading(false);
-        }, 1000);
+        }, 2000);
         if (result.length > 0) {
           setArrayGame(result[Math.floor(Math.random() * result.length)]);
         }
@@ -43,14 +43,20 @@ export default function Game() {
           (item) => item.public_id !== arrayGame.public_id
         );
         setData(newData);
-        setGamePoints(gamePoints + 1);
+        if (difficultyBlur === 3) {
+          setGamePoints(gamePoints + 5);
+        } else if (difficultyBlur === 2) {
+          setGamePoints(gamePoints + 3);
+        } else if (difficultyBlur === 1) {
+          setGamePoints(gamePoints + 1);
+        } else setGamePoints(gamePoints + 0);
         setDifficultyBlur(3);
         setCelebrityName("");
         if (newData.length > 0) {
           setArrayGame(newData[Math.floor(Math.random() * newData.length)]);
         } else {
           setArrayGame(null);
-          setCreditPlus(true);
+          setEndGame(true);
         }
       } else {
         difficultyBlur === 0 ? null : setDifficultyBlur(difficultyBlur - 1);
@@ -59,9 +65,31 @@ export default function Game() {
     }
   };
 
+  const PassCelebrityName = () => {
+    const actualName = arrayGame.public_id.split("GuessWho/")[1].toLowerCase();
+    if (actualName) {
+      const newData = data.filter(
+        (item) => item.public_id !== arrayGame.public_id
+      );
+      setData(newData);
+      setGamePoints(gamePoints + 0);
+      setDifficultyBlur(3);
+      setCelebrityName("");
+      if (newData.length > 0) {
+        setArrayGame(newData[Math.floor(Math.random() * newData.length)]);
+      } else {
+        setArrayGame(null);
+        setEndGame(true);
+      }
+    } else {
+      difficultyBlur === 0 ? null : setDifficultyBlur(difficultyBlur - 1);
+      setIsNotCorrect(true);
+    }
+  };
+
   useEffect(() => {
-    if (gamePoints === 10) {
-      setCreditPlus(true);
+    if (gamePoints === 100 || gamePoints > 100) {
+      setEndGame(true);
     }
 
     if (isNotCorrect) {
@@ -72,18 +100,13 @@ export default function Game() {
     }
   }, [gamePoints, isNotCorrect]);
 
-  const continueCredit = () => {
-    setCreditPlus(false);
-    setGamePoints(0);
-  };
-
   if (loading) {
     return <main>Loading...</main>;
   }
 
   return (
     <main>
-      {!creditPlus ? (
+      {!endGame ? (
         <div className="p-4">
           <div className="img-cont">
             <img src={arrayGame.secure_url} alt="Random image" />
@@ -99,6 +122,15 @@ export default function Game() {
               }`}
             ></div>
           </div>
+          {difficultyBlur === 3 ? (
+            <div>5pts</div>
+          ) : difficultyBlur === 2 ? (
+            <div>3pts</div>
+          ) : difficultyBlur === 1 ? (
+            <div>1 pts</div>
+          ) : (
+            <div>0 pt</div>
+          )}
           <div>{arrayGame.public_id.split("GuessWho/")[1]}</div>
           <div>
             <input
@@ -115,19 +147,29 @@ export default function Game() {
               }}
             />
           </div>
+          <button onClick={PassCelebrityName}>PASS</button>
         </div>
       ) : (
         <>
-          <div>Congratulations, you win!</div>
-          {arrayGame === null ? (
+          {arrayGame === null && gamePoints < 100 ? (
             <>
-              <div>You completed EASY level</div>
               <Link href={"/"}>
-                <div>Try another level !</div>
+                <div>Try again and reach 100 points!</div>
               </Link>
             </>
+          ) : gamePoints >= 100 ? (
+            <div>
+              <div>Congratulations! You reached 100 points!</div>
+              <div>
+                <Link href={"/"}>
+                  <div>RETOUR</div>
+                </Link>
+              </div>
+            </div>
           ) : (
-            <div onClick={continueCredit}>CONTINUE?</div>
+            <Link href={"/"}>
+              <div>Try again and reach 100 points!</div>
+            </Link>
           )}
         </>
       )}
